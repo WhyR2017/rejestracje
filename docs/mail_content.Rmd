@@ -1,29 +1,30 @@
 ---
 output: html_document
 params:
-  p1: 'M'
-  p2: 'imie_wolacz'
-  p3: 'nazwa_warsztatu'
+  form: "form"
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(echo = FALSE)
 ```
 
-</br>
+<br>
 
-```{r, echo=FALSE, results='asis'}
-if (params$p1 == "M") {
-  cat(paste0("Szanowny Panie **", params$p2, "**"))
-} else {
-  cat(paste0("Szanowna Pani **", params$p2, "**"))
-}
+```{r, results = 'asis'}
+cat(paste0("Witaj **", params$form$Dane[1], "** **",
+           params$form$Dane[2], "**!"))
 ```
 
-Chcieli�my potwierdzi� uczestnictwo w warsztatach "`r params$p3`".
+Dziękujemy Ci za zarejestrowanie się na ogólnopolską konferencję [Why R?](http://whyr.pl/) Twoje odpowiedzi z formularza są dostępne poniżej.
 
-Og�lnie napisz i sformatuj sobie jak chcesz...
+Jeżeli wyrażasz chęć dokonania jakichś zmian, proszę <a href="mailto:whyr@mini.pw.edu.pl">skontaktuj</a> się z nami.
 
-Organizatorzy,
+```{r}
+knitr::kable(params$form)
+```
+
+DODAĆ INFO O OPŁATACH
+
+Organizatorzy
 
 ![](logo.png)
