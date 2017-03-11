@@ -1,0 +1,29 @@
+---
+output: html_document
+params:
+  p1: 'M'
+  p2: 'imie_wolacz'
+  p3: 'nazwa_warsztatu'
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+</br>
+
+```{r, echo=FALSE, results='asis'}
+if (params$p1 == "M") {
+  cat(paste0("Szanowny Panie **", params$p2, "**"))
+} else {
+  cat(paste0("Szanowna Pani **", params$p2, "**"))
+}
+```
+
+Chcieliœmy potwierdziæ uczestnictwo w warsztatach "`r params$p3`".
+
+Ogólnie napisz i sformatuj sobie jak chcesz...
+
+Organizatorzy,
+
+![](logo.png)

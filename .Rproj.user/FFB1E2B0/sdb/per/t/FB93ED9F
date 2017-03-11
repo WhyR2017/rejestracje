@@ -1,0 +1,21 @@
+{
+    "collab_server" : "",
+    "contents" : "---\noutput: html_document\nparams:\n  p1: 'M'\n  p2: 'imie_wolacz'\n  p3: 'nazwa_warsztatu'\n---\n\n```{r setup, include=FALSE}\nknitr::opts_chunk$set(echo = TRUE)\n```\n\n</br>\n\n```{r, echo=FALSE, results='asis'}\nif (params$p1 == \"M\") {\n  cat(paste0(\"Szanowny Panie **\", params$p2, \"**\"))\n} else {\n  cat(paste0(\"Szanowna Pani **\", params$p2, \"**\"))\n}\n```\n\nChcieli?my potwierdzi? uczestnictwo w warsztatach \"`r params$p3`\".\n\nOg?lnie napisz i sformatuj sobie jak chcesz...\n\nOrganizatorzy,\n\n![](logo.png)\n",
+    "created" : 1489240464178.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "96882272",
+    "id" : "FB93ED9F",
+    "lastKnownWriteTime" : 1489242791,
+    "last_content_update" : 1489242791,
+    "path" : "G:/projekty/2017/korespondencja-seryjna/docs/mail_content.Rmd",
+    "project_path" : "docs/mail_content.Rmd",
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 1,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_markdown"
+}
