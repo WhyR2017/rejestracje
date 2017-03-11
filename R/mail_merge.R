@@ -2,7 +2,6 @@ library(dplyr)
 library(knitr)
 # devtools::install_github("rpremraj/mailR") # wymaga instalacji java jdk 32bit
 library(mailR)
-library(pander)
 library(readr)
 library(rmarkdown)
 
