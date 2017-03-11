@@ -1,14 +1,14 @@
 {
     "collab_server" : "",
-    "contents" : "library(knitr)\nlibrary(rmarkdown)\n# devtools::install_github(\"rpremraj/mailR\") # wymaga instalacji java jdk 32bit\nlibrary(mailR)\n\nparticipants <- read.csv2(file = \"data/participants.csv\")\n\nfor (i in 1:nrow(participants)){\n  rmarkdown::render(input = \"docs/mail_content.Rmd\",\n                    output_format = \"html_document\",\n                    output_dir = \"docs/\",\n                    params = list(\n                      p1 = participants$plec[i],\n                      p2 = participants$imie_w[i],\n                      p3 = participants$warsztat_nazwa[i]))\n  \n  email <- send.mail(from = uzupelnic,\n                     to   = uzupelnic,\n                     subject = \"Potwierdzenie rejestracji na warsztaty\",\n                     body = \"docs/mail_content.html\",\n                     html = TRUE,\n                     encoding = \"utf-8\",\n                     smtp = list(host.name = \"smtp.gmail.com\", \n                                 port = 465, \n                                 user.name = login_email, \n                                 passwd = login_pass, \n                                 ssl = TRUE),\n                     authenticate = TRUE,\n                     send = FALSE)\n  \n  # email$addBcc(c(\"\"))\n  # email$addReplyTo(c(\"\"))\n  email$send()\n}",
+    "contents" : "library(knitr)\nlibrary(rmarkdown)\n# devtools::install_github(\"rpremraj/mailR\") # wymaga instalacji java jdk 32bit\nlibrary(mailR)\n\nemail_from <- \"\"\nemail_to   <- \"\"\nsubject <- \"Potwierdzenie rejestracji na warsztaty\"\nlogin_email <- \"xxx@gmail.com\"\nlogin_pass  <- \"xxx\"\n\nparticipants <- read.csv2(file = \"data/participants.csv\")\n\nfor (i in 1:nrow(participants)){\n  rmarkdown::render(input = \"docs/mail_content.Rmd\",\n                    output_format = \"html_document\",\n                    output_dir = \"docs/\",\n                    params = list(\n                      p1 = participants$plec[i],\n                      p2 = participants$imie_w[i],\n                      p3 = participants$warsztat_nazwa[i]))\n  \n  email <- send.mail(from = email_from,\n                     to   = email_to,\n                     subject = subject,\n                     body = \"docs/mail_content.html\",\n                     html = TRUE,\n                     encoding = \"utf-8\",\n                     smtp = list(host.name = \"smtp.gmail.com\", \n                                 port = 465, \n                                 user.name = login_email, \n                                 passwd = login_pass, \n                                 ssl = TRUE),\n                     authenticate = TRUE,\n                     send = FALSE)\n  \n  # email$addBcc(c(\"\"))\n  # email$addReplyTo(c(\"\"))\n  email$send()\n}",
     "created" : 1489242295332.000,
     "dirty" : false,
     "encoding" : "UTF-8",
     "folds" : "",
-    "hash" : "2682917066",
+    "hash" : "2253897828",
     "id" : "302F7FD8",
-    "lastKnownWriteTime" : 1489246495,
-    "last_content_update" : 1489246495090,
+    "lastKnownWriteTime" : 1489246781,
+    "last_content_update" : 1489246781895,
     "path" : "G:/projekty/2017/korespondencja-seryjna/R/mail_merge.R",
     "project_path" : "R/mail_merge.R",
     "properties" : {
