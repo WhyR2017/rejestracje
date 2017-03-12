@@ -4,17 +4,19 @@ library(knitr)
 library(mailR)
 library(readr)
 library(rmarkdown)
+library(tidyr)
 
 # Mail vars
-email_from <- ""
+emailFrom <- ""
 subject <- "Potwierdzenie rejestracji na konferencję"
-login_email <- "xxx@gmail.com"
-login_pass  <- "xxx"
+smtp <- list(host.name = "",
+             port = 465,
+             user.name = "",
+             passwd = "",
+             ssl = TRUE)
 
 # Frame vars
-currSheet <- read_csv("link_to_spreadsheet")
-# Classes of attributes
-# sapply(currSheet, class) %>% unname() %>% strtrim(1) %>% paste0(collapse = "")
+currSheet <- read_csv("link_to_whole_spreadsheet")
 prevSheet <- read_csv("data/prevSheet.csv",
                       col_types = "ccccccccccccccccnnccccc")
 diffSheet <- setdiff(currSheet, prevSheet) %>%
@@ -32,30 +34,20 @@ diffSheet <- setdiff(currSheet, prevSheet) %>%
                                             true = "Nie",
                                             false = "Tak"))
 
-bodyList <- apply(diffSheet, 1, function(row) {
-  data_frame(Formularz = names(row), Dane = unname(row))
-})
-
-mailNumber <- which(bodyList[[1]]$Formularz == "Email")
-
-for (i in 1:length(bodyList)){
+for (i in 1:nrow(diffSheet)) {
   rmarkdown::render(input = "docs/mail_content.Rmd",
                     output_format = "html_document",
                     output_dir = "docs/",
-                    params = list(form = bodyList[[i]][-mailNumber, ]),
+                    params = list(form = diffSheet[i, ] %>% select(-Email)),
                     encoding = "utf-8")
   
-  email <- mailR::send.mail(from = email_from,
-                            to = bodyList[[i]]$Dane[mailNumber],
+  email <- mailR::send.mail(from = emailFrom,
+                            to = diffSheet[i, ]$Email,
                             subject = subject,
                             body = "docs/mail_content.html",
                             html = TRUE,
                             encoding = "utf-8",
-                            smtp = list(host.name = "smtp.gmail.com",
-                                        port = 465,
-                                        user.name = login_email,
-                                        passwd = login_pass,
-                                        ssl = TRUE),
+                            smtp = smtp,
                             authenticate = TRUE,
                             send = FALSE)
   
