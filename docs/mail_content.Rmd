@@ -5,14 +5,14 @@ params:
 ---
 
 ```{r setup, include = FALSE}
-knitr::opts_chunk$set(echo = FALSE)
+knitr::opts_chunk$set(echo = FALSE, message = FALSE)
 ```
 
 <br>
 
 ```{r, results = 'asis'}
-cat(paste0("Witaj **", params$form$Dane[1], "** **",
-           params$form$Dane[2], "**!"))
+cat(paste0("Witaj **", params$form$Imię, "** **",
+           params$form$Nazwisko, "**!"))
 ```
 
 Dziękujemy Ci za zarejestrowanie się na ogólnopolską konferencję [Why R?](http://whyr.pl/) Twoje odpowiedzi z formularza są dostępne poniżej.
@@ -20,7 +20,9 @@ Dziękujemy Ci za zarejestrowanie się na ogólnopolską konferencję [Why R?](h
 Jeżeli wyrażasz chęć dokonania jakichś zmian, proszę <a href="mailto:whyr@mini.pw.edu.pl">skontaktuj</a> się z nami.
 
 ```{r}
-knitr::kable(params$form)
+params$form %>%
+  tidyr::gather(key = Formularz, value = Dane) %>%
+  knitr::kable()
 ```
 
 Płatności będziemy przyjmować najprawdopodobniej w czerwcu. Poinformujemy o tym w odpowiednim mailu.
@@ -28,7 +30,50 @@ Jeżeli potrzebujesz otrzymać fakturę za uczestnictwo w konferencji, odpisz pr
 
 Pamiętajcie o zgłaszaniu wystąpień. Zgłoszenia wystąpień dostępne są pod [tym linkiem](https://docs.google.com/forms/d/e/1FAIpQLSe3OAe5W09gMdSNDbGfuHd8aiOh84jQqSwXNAR6C5yQ72CFcg/viewform)
 
-DODAĆ INFO O OPŁATACH
+```{r, results = 'asis'}
+noCharge <- read_csv("link_to_organizers_spreadsheet") %>%
+  mutate(fullName = paste(Imię, Nazwisko) %>%
+           trimws())
+
+if (paste(params$form$Imię, params$form$Nazwisko) %>%
+    trimws() %in% noCharge$fullName) {
+  cat("Twoja opłata konferencyjna wynosi **0 PLN**")
+} else {
+  payment <- data_frame(
+    Konferencja = 0,
+    `Warsztat poranny` = 0,
+    `Warsztat popołudniowy` = 0,
+    `Rezygnacja z cateringu` = 0,
+    `Suma [PLN]` = 0
+  )
+  payment <- payment %>%
+    mutate(
+      Konferencja = if_else(
+        params$form$`Udział w konferencji` == "Tak",
+        true = 100,
+        false = 0
+      ),
+      `Warsztat poranny` = if_else(
+        params$form$`Warsztaty poranny` != "Żadnym",
+        true = 200,
+        false = 0
+      ),
+      `Warsztat popołudniowy` = if_else(
+        params$form$`Warsztat popołudniowy` != "Żadnym",
+        true = 200,
+        false = 0
+      ),
+      `Rezygnacja z cateringu` = if_else(
+        params$form$`Rezygnacja z cateringu` == "Tak",
+        true = -10,
+        false = 0
+      )
+    ) %>%
+    mutate(`Suma [PLN]` = rowSums(.))
+  
+  knitr::kable(payment)
+}
+```
 
 Organizatorzy
 
