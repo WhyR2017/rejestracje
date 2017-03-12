@@ -23,6 +23,11 @@ Jeżeli wyrażasz chęć dokonania jakichś zmian, proszę <a href="mailto:whyr@
 knitr::kable(params$form)
 ```
 
+Płatności będziemy przyjmować najprawdopodobniej w czerwcu. Poinformujemy o tym w odpowiednim mailu.
+Jeżeli potrzebujesz otrzymać fakturę za uczestnictwo w konferencji, odpisz proszę na tego maila, uwzględniając potrzebne dane.
+
+Pamiętajcie o zgłaszaniu wystąpień. Zgłoszenia wystąpień dostępne są pod [tym linkiem](https://docs.google.com/forms/d/e/1FAIpQLSe3OAe5W09gMdSNDbGfuHd8aiOh84jQqSwXNAR6C5yQ72CFcg/viewform)
+
 DODAĆ INFO O OPŁATACH
 
 Organizatorzy
