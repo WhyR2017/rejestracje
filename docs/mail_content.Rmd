@@ -1,5 +1,9 @@
 ---
-output: html_document
+output: 
+    html_document:
+        theme: null
+        highlight: null
+        mathjax: null
 params:
   form: "form"
 ---
@@ -7,8 +11,6 @@ params:
 ```{r setup, include = FALSE}
 knitr::opts_chunk$set(echo = FALSE, message = FALSE)
 ```
-
-<br>
 
 ```{r, results = 'asis'}
 cat(paste0("Witaj **", params$form$Imię, "** **",
@@ -43,7 +45,7 @@ if (paste(params$form$Imię, params$form$Nazwisko) %>%
     Konferencja = 0,
     `Warsztat poranny` = 0,
     `Warsztat popołudniowy` = 0,
-    `Rezygnacja z cateringu` = 0,
+    `Rezygnacja z opłaty cateringowej` = 0,
     `Suma [PLN]` = 0
   )
   payment <- payment %>%
@@ -63,8 +65,8 @@ if (paste(params$form$Imię, params$form$Nazwisko) %>%
         true = 200,
         false = 0
       ),
-      `Rezygnacja z cateringu` = if_else(
-        params$form$`Rezygnacja z cateringu` == "Tak",
+      `Rezygnacja z opłaty cateringowej` = if_else(
+        params$form$`Rezygnacja z opłaty cateringowej` == "Tak",
         true = -10,
         false = 0
       )
@@ -76,5 +78,3 @@ if (paste(params$form$Imię, params$form$Nazwisko) %>%
 ```
 
 Organizatorzy
-
-![](logo.png)
