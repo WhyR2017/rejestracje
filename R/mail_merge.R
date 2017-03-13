@@ -27,9 +27,9 @@ diffSheet <- setdiff(currSheet, prevSheet) %>%
          `Warsztat popołudniowy` = `W którym warsztacie popołudniowym chciałabyś/chciałbyś uczestniczyć 27.09?`,
          `Data urodzin` = `Proszę podaj swoją datę urodzin`) %>%
   select(Imię, Nazwisko, `Afiliacja / Firma`, `Stopień naukowy`, Email,
-         `Udział w konferencji`, `Rezygnacja z cateringu`, `Warsztaty poranny`,
-         `Warsztat popołudniowy`, `Obecne stanowisko`, `Data urodzin`, Płeć,
-         Kraj, Miasto) %>%
+         `Udział w konferencji`, `Rezygnacja z opłaty cateringowej`,
+         `Warsztaty poranny`, `Warsztat popołudniowy`, `Obecne stanowisko`,
+         `Data urodzin`, Płeć, Kraj, Miasto) %>%
   mutate(`Rezygnacja z opłaty cateringowej` = if_else(
     is.na(`Rezygnacja z opłaty cateringowej`),
     true = "Nie",
