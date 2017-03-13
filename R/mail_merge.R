@@ -30,9 +30,11 @@ diffSheet <- setdiff(currSheet, prevSheet) %>%
          `Udział w konferencji`, `Rezygnacja z cateringu`, `Warsztaty poranny`,
          `Warsztat popołudniowy`, `Obecne stanowisko`, `Data urodzin`, Płeć,
          Kraj, Miasto) %>%
-  mutate(`Rezygnacja z cateringu` = if_else(is.na(`Rezygnacja z cateringu`),
-                                            true = "Nie",
-                                            false = "Tak"))
+  mutate(`Rezygnacja z opłaty cateringowej` = if_else(
+    is.na(`Rezygnacja z cateringu`),
+    true = "Nie",
+    false = "Tak")
+  )
 
 for (i in 1:nrow(diffSheet)) {
   rmarkdown::render(input = "docs/mail_content.Rmd",
