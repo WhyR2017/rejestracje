@@ -70,7 +70,8 @@ if (paste(params$form$Imię, params$form$Nazwisko) %>%
         false = 0
       )
     ) %>%
-    mutate(Suma = rowSums(.))
+    mutate(Suma = rowSums(.),
+           Suma = if_else(Suma < 0, true = 0, false = Suma))
   
   payment %>%
     tidyr::gather(key = Za, value = `Kwota [PLN]`) %>%
