@@ -31,7 +31,7 @@ diffSheet <- setdiff(currSheet, prevSheet) %>%
          `Warsztat popołudniowy`, `Obecne stanowisko`, `Data urodzin`, Płeć,
          Kraj, Miasto) %>%
   mutate(`Rezygnacja z opłaty cateringowej` = if_else(
-    is.na(`Rezygnacja z cateringu`),
+    is.na(`Rezygnacja z opłaty cateringowej`),
     true = "Nie",
     false = "Tak")
   )
