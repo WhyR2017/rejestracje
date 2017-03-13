@@ -22,7 +22,7 @@ prevSheet <- read_csv("data/prevSheet.csv",
 diffSheet <- setdiff(currSheet, prevSheet) %>%
   rename(`Stopień naukowy` = `Stopień naukowy do umieszczenia na certyfikacie uczestnictwa w konferencji (o ile dotyczy)`,
          `Udział w konferencji` = `Czy chcesz uczestniczyć w konferencji?`,
-         `Rezygnacja z cateringu` = `Zaznacz poniżej jeżeli chcesz zrezygnować z opłaty cateringowej (10 zł)`,
+         `Rezygnacja z opłaty cateringowej` = `Zaznacz poniżej jeżeli chcesz zrezygnować z opłaty cateringowej (10 zł)`,
          `Warsztaty poranny` = `W którym warsztacie porannym chciałabyś/chciałbyś uczestniczyć 27.09?`,
          `Warsztat popołudniowy` = `W którym warsztacie popołudniowym chciałabyś/chciałbyś uczestniczyć 27.09?`,
          `Data urodzin` = `Proszę podaj swoją datę urodzin`) %>%
@@ -45,8 +45,8 @@ for (i in 1:nrow(diffSheet)) {
                             to = diffSheet[i, ]$Email,
                             subject = subject,
                             body = "docs/mail_content.html",
-                            html = TRUE,
                             encoding = "utf-8",
+                            html = TRUE,
                             smtp = smtp,
                             authenticate = TRUE,
                             send = FALSE)
