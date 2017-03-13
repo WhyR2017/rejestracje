@@ -13,8 +13,7 @@ knitr::opts_chunk$set(echo = FALSE, message = FALSE)
 ```
 
 ```{r, results = 'asis'}
-cat(paste0("Witaj **", params$form$Imię, "** **",
-           params$form$Nazwisko, "**!"))
+cat(paste0("Witaj, **", params$form$Imię, "** **", params$form$Nazwisko, "**!"))
 ```
 
 Dziękujemy Ci za zarejestrowanie się na ogólnopolską konferencję [Why R?](http://whyr.pl/) Twoje odpowiedzi z formularza są dostępne poniżej.
@@ -30,7 +29,7 @@ params$form %>%
 Płatności będziemy przyjmować najprawdopodobniej w czerwcu. Poinformujemy o tym w odpowiednim mailu.
 Jeżeli potrzebujesz otrzymać fakturę za uczestnictwo w konferencji, odpisz proszę na tego maila, uwzględniając potrzebne dane.
 
-Pamiętajcie o zgłaszaniu wystąpień. Zgłoszenia wystąpień dostępne są pod [tym linkiem](https://docs.google.com/forms/d/e/1FAIpQLSe3OAe5W09gMdSNDbGfuHd8aiOh84jQqSwXNAR6C5yQ72CFcg/viewform)
+Poniżej przedstawiamy podsumowanie Twoich należności:
 
 ```{r, results = 'asis'}
 noCharge <- read_csv("link_to_organizers_spreadsheet") %>%
@@ -46,7 +45,7 @@ if (paste(params$form$Imię, params$form$Nazwisko) %>%
     `Warsztat poranny` = 0,
     `Warsztat popołudniowy` = 0,
     `Rezygnacja z opłaty cateringowej` = 0,
-    `Suma [PLN]` = 0
+    Suma = 0
   )
   payment <- payment %>%
     mutate(
@@ -71,10 +70,16 @@ if (paste(params$form$Imię, params$form$Nazwisko) %>%
         false = 0
       )
     ) %>%
-    mutate(`Suma [PLN]` = rowSums(.))
+    mutate(Suma = rowSums(.))
   
-  knitr::kable(payment)
+  payment %>%
+    tidyr::gather(key = Za, value = `Kwota [PLN]`) %>%
+    knitr::kable()
 }
 ```
+
+Jeżeli wyrażasz chęć wystąpienia na konferencji, prosimy bardzo o wypełnienie formularza znajdującego się pod [tym linkiem](http://docs.google.com/forms/d/e/1FAIpQLSe3OAe5W09gMdSNDbGfuHd8aiOh84jQqSwXNAR6C5yQ72CFcg/viewform).
+
+Z wyrazami szacunku
 
 Organizatorzy
